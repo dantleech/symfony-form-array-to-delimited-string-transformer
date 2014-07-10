@@ -1,0 +1,17 @@
+{
+    "name": "dantleech/symfony-form-array-to-delimited-string-transformer",
+    "description": "Data transformer for SF form. Transforms delimited to string to array and vice-versa",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dantleech",
+            "email": "daniel@dantleech.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "DTL\\Symfony\\Form\\DataTransformer\\": "lib"
+        }
+    }
+}
