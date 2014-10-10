@@ -9,9 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Form\Tests\Extension\Core\DataTransformer;
-
-use Symfony\Component\Form\Extension\Core\DataTransformer\ArrayToDelimitedStringTransformer;
+namespace DTL\Symfony\Form\DataTransformer;
 
 class ArrayToDelimitedStringTransformerTest extends \PHPUnit_Framework_TestCase
 {
