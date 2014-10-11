@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=5.3",
-        "symfony/form": "~2.2.0"
+        "symfony/form": "~2.2"
     },
     "autoload": {
         "psr-4": {
