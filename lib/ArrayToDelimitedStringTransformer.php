@@ -23,20 +23,22 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class ArrayToDelimitedStringTransformer implements DataTransformerInterface
 {
     private $delimiter;
-    private $format;
+    private $paddingLeft;
+    private $paddingRight;
 
     /**
      * Constructor
      *
      * @param string $delimiter The delimiter to use when transforming from
      * a string to an array and vice-versa
-     * @param string $format The format to use when reconstructing the
-     * string
+     * @param integer Number of spaces before each transformed array element
+     * @param integer Number of spaces after each transformed array element
      */
-    public function __construct($delimiter = ',', $format = ' %s')
+    public function __construct($delimiter = ',', $paddingLeft = 0, $paddingRight = 1)
     {
         $this->delimiter = $delimiter;
-        $this->format = $format;
+        $this->paddingLeft = $paddingLeft;
+        $this->paddingRight = $paddingRight;
     }
 
     /**
@@ -59,7 +61,11 @@ class ArrayToDelimitedStringTransformer implements DataTransformerInterface
         }
 
         foreach ($array as &$value) {
-            $value = sprintf($this->format, $value);
+            $value = sprintf('%s%s%s',
+                str_repeat(' ', $this->paddingLeft),
+                $value,
+                str_repeat(' ', $this->paddingRight)
+            );
         }
 
         $string = trim(implode($this->delimiter, $array));
