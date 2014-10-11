@@ -11,6 +11,8 @@
 
 namespace DTL\Symfony\Form\DataTransformer;
 
+use DTL\Symfony\Form\DataTransformer\ArrayToDelimitedStringTransformer;
+
 class ArrayToDelimitedStringTransformerTest extends \PHPUnit_Framework_TestCase
 {
     public function provideReverseTransform()
@@ -72,25 +74,24 @@ class ArrayToDelimitedStringTransformerTest extends \PHPUnit_Framework_TestCase
                 array('foo', 'bar', 'foo'),
                 'foo ,bar ,foo',
                 ',',
-                '%s ',
+                0 , 1
             ),
             array(
                 array('foo', 'bar', 'foo'),
                 'foo,bar,foo',
                 ',',
-                '%s',
+                0, 0
             ),
             array(
                 array('foo', 'bar', 'foo'),
                 'foo , bar , foo',
                 ',',
-                ' %s ',
+                1, 1
             ),
             array(
                 array('foo'),
                 'foo',
                 ',',
-                '%s',
             ),
             array(
                 null,
@@ -98,6 +99,7 @@ class ArrayToDelimitedStringTransformerTest extends \PHPUnit_Framework_TestCase
             ),
             array(
                 'asdasd',
+                null,
                 null,
                 null,
                 null,
@@ -109,13 +111,13 @@ class ArrayToDelimitedStringTransformerTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider provideTransform
      */
-    public function testTransform($array, $string, $delimiter = null, $format = null, $expectedException = null)
+    public function testTransform($array, $string, $delimiter = null, $paddingLeft = null, $paddingRight = null, $expectedException = null)
     {
         if ($expectedException) {
             $this->setExpectedException('Symfony\Component\Form\Exception\TransformationFailedException', $expectedException);
         }
 
-        $transformer = new ArrayToDelimitedStringTransformer($delimiter, $format);
+        $transformer = new ArrayToDelimitedStringTransformer($delimiter, $paddingLeft, $paddingRight);
         $res = $transformer->transform($array);
         $this->assertEquals($string, $res);
     }
