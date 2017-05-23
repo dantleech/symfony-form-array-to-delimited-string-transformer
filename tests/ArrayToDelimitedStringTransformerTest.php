@@ -121,5 +121,52 @@ class ArrayToDelimitedStringTransformerTest extends \PHPUnit_Framework_TestCase
         $res = $transformer->transform($array);
         $this->assertEquals($string, $res);
     }
-}
 
+    /**
+     * @dataProvider provideSpaceAsDelimiterExamples
+     */
+    public function testSpaceAsDelimiter(array $array, $string, $message = null)
+    {
+        $transformer = new ArrayToDelimitedStringTransformer(' ', 0, 0);
+
+        $this->assertSame($string, $transformer->transform($array), $message);
+
+        $this->assertSame($array, $transformer->reverseTransform($string), $message);
+    }
+
+    public function provideSpaceAsDelimiterExamples()
+    {
+        return array(
+            array(
+                array('foo', 'bar', 'baz'),
+                'foo bar baz',
+                'Space as a delimiter',
+            ),
+            array(
+                array('foo', 'bar', '',  'baz'),
+                'foo bar  baz',
+                'Empty elements are preserved',
+            ),
+            array(
+                array('', 'foo'),
+                ' foo',
+                'Empty elements at the beginning are preserved',
+            ),
+            array(
+                array('foo', ''),
+                'foo ',
+                'Empty elements at the end are preserved',
+            ),
+            array(
+                array('', '', 'foo'),
+                '  foo',
+                'Empty elements at the beginning are preserved',
+            ),
+            array(
+                array('foo', '', ''),
+                'foo  ',
+                'Empty elements at the end are preserved',
+            ),
+        );
+    }
+}
