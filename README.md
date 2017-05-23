@@ -28,7 +28,7 @@ This will transform the ``tags`` text field as follows:
 array('one', 'two', 'three', 'four') === 'one, two, three, four'
 
 // Reverse transform
-'   one ,  two    , three, four,' === array('one', two', 'three', 'four')
+'   one ,  two    , three, four,' === array('one', 'two', 'three', 'four')
 ````
 
 Changing the delimiter
