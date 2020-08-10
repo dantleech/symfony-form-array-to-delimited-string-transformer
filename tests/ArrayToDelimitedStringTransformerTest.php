@@ -12,8 +12,9 @@
 namespace DTL\Symfony\Form\DataTransformer;
 
 use DTL\Symfony\Form\DataTransformer\ArrayToDelimitedStringTransformer;
+use PHPUnit\Framework\TestCase;
 
-class ArrayToDelimitedStringTransformerTest extends \PHPUnit_Framework_TestCase
+class ArrayToDelimitedStringTransformerTest extends TestCase
 {
     public function provideReverseTransform()
     {
@@ -59,7 +60,8 @@ class ArrayToDelimitedStringTransformerTest extends \PHPUnit_Framework_TestCase
     public function testReverseTransform($string, $expected, $delimiter = ',', $expectedException = null)
     {
         if ($expectedException) {
-            $this->setExpectedException('Symfony\Component\Form\Exception\TransformationFailedException', $expectedException);
+            $this->expectException('Symfony\Component\Form\Exception\TransformationFailedException');
+            $this->expectExceptionMessage($expectedException);
         }
 
         $transformer = new ArrayToDelimitedStringTransformer($delimiter);
@@ -114,7 +116,8 @@ class ArrayToDelimitedStringTransformerTest extends \PHPUnit_Framework_TestCase
     public function testTransform($array, $string, $delimiter = null, $paddingLeft = null, $paddingRight = null, $expectedException = null)
     {
         if ($expectedException) {
-            $this->setExpectedException('Symfony\Component\Form\Exception\TransformationFailedException', $expectedException);
+            $this->expectException('Symfony\Component\Form\Exception\TransformationFailedException');
+            $this->expectExceptionMessage($expectedException);
         }
 
         $transformer = new ArrayToDelimitedStringTransformer($delimiter, $paddingLeft, $paddingRight);
